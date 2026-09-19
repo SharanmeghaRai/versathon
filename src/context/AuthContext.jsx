@@ -1,8 +1,3 @@
-// This file keeps track of "who is currently logged in" so that every page
-// in the app can access it via useAuth().
-// It supports both LIVE Firebase (when .env is provided) and LOCAL DEMO MODE
-// (when running locally for testing without Firebase setup yet).
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, signOut as fbSignOut } from "firebase/auth";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
@@ -24,7 +19,7 @@ const DEFAULT_DEMO_PROFILE = {
   college: "Tech Institute of Engineering",
   department: "Computer Science",
   year: "3rd Year",
-  bio: "Curious student passionate about Python and Data Analysis. Looking to learn modern UI/UX design and React web development!",
+  bio: "CS undergrad exploring Python tooling and algorithm practice. Looking to get hands-on with Figma prototyping and frontend components.",
   teachingSkills: ["Python", "C++", "Data Structures"],
   learningSkills: ["UI/UX", "React", "Figma"],
   skillLevel: "Intermediate",
@@ -43,7 +38,6 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [demoMode, setDemoMode] = useState(!isFirebaseConfigured);
 
-  // Initialize demo data if not already set
   useEffect(() => {
     if (!localStorage.getItem("campus_demo_students")) {
       localStorage.setItem("campus_demo_students", JSON.stringify(SAMPLE_STUDENTS));
@@ -170,7 +164,6 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // Firebase auth listener or local demo session restoration
   useEffect(() => {
     if (isFirebaseConfigured && auth) {
       const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
@@ -182,7 +175,6 @@ export function AuthProvider({ children }) {
       });
       return unsubscribeAuth;
     } else {
-      // Demo mode fallback
       const savedUser = localStorage.getItem("campus_current_user");
       const savedProfile = localStorage.getItem("campus_current_profile");
       if (savedUser && savedProfile) {
@@ -201,7 +193,6 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // Firestore profile sync when in real Firebase mode
   useEffect(() => {
     if (!isFirebaseConfigured || !db || !currentUser) return;
     const unsubscribeProfile = onSnapshot(
@@ -218,7 +209,6 @@ export function AuthProvider({ children }) {
     return unsubscribeProfile;
   }, [currentUser]);
 
-  // Logout helper that works in both Firebase and Demo mode
   async function logout() {
     if (isFirebaseConfigured && auth) {
       await fbSignOut(auth);
@@ -230,7 +220,6 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Demo login helper
   function loginDemoUser(user = DEFAULT_DEMO_USER, userProfile = DEFAULT_DEMO_PROFILE) {
     localStorage.setItem("campus_current_user", JSON.stringify(user));
     localStorage.setItem("campus_current_profile", JSON.stringify(userProfile));
@@ -239,7 +228,6 @@ export function AuthProvider({ children }) {
     setDemoMode(true);
   }
 
-  // Update profile helper that syncs to Firebase or localStorage
   async function updateCurrentUserProfile(updatedData) {
     if (isFirebaseConfigured && db && currentUser) {
       await setDoc(doc(db, "users", currentUser.uid), updatedData, { merge: true });

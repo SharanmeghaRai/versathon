@@ -1,4 +1,8 @@
-export const SAMPLE_STUDENTS = [
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+const SAMPLE_STUDENTS = [
   {
     id: "sample_aarav",
     name: "Aarav Sharma",
@@ -7,17 +11,13 @@ export const SAMPLE_STUDENTS = [
     department: "Computer Science",
     year: "3rd Year",
     bio: "Working on Django backends and competitive programming. Happy to help with Python scripting and DSA prep; trying to learn React for semester project.",
-    profileImage: "",
-    teachingSkills: ["Python", "Data Structures", "Figma", "Git"],
-    learningSkills: ["React", "Photography", "Tailwind CSS"],
-    skillLevel: "Advanced",
+    skillLevel: "ADVANCED",
     availability: "Weekday evenings & Saturday afternoons",
-    learningMode: "Both",
+    learningMode: "BOTH",
     points: 125,
     badges: ["First Exchange", "Skill Mentor", "Top Contributor"],
     rating: 4.9,
     reviewCount: 8,
-    isSample: true,
   },
   {
     id: "sample_riya",
@@ -27,17 +27,13 @@ export const SAMPLE_STUDENTS = [
     department: "Information Technology",
     year: "2nd Year",
     bio: "Frontend focused. I spend most of my time building React interfaces and designing in Figma. Looking to get comfortable with Python backend and APIs.",
-    profileImage: "",
-    teachingSkills: ["React", "UI/UX", "JavaScript", "Tailwind CSS"],
-    learningSkills: ["Python", "Video Editing", "Machine Learning"],
-    skillLevel: "Intermediate",
+    skillLevel: "INTERMEDIATE",
     availability: "Weekends & Tuesday/Thursday afternoons",
-    learningMode: "Both",
+    learningMode: "BOTH",
     points: 140,
     badges: ["First Exchange", "Community Builder", "Skill Mentor"],
     rating: 5.0,
     reviewCount: 11,
-    isSample: true,
   },
   {
     id: "sample_rohan",
@@ -47,17 +43,13 @@ export const SAMPLE_STUDENTS = [
     department: "AI & Data Science",
     year: "4th Year",
     bio: "Senior year working on CV projects and PyTorch. Can walk anyone through Python fundamentals, NumPy, and SQL. Want practice with presentation skills.",
-    profileImage: "",
-    teachingSkills: ["AI & Machine Learning", "Python", "SQL", "Statistics"],
-    learningSkills: ["Communication", "Public Speaking", "UI/UX"],
-    skillLevel: "Advanced",
+    skillLevel: "ADVANCED",
     availability: "Flexible on weekdays after 5 PM",
-    learningMode: "Online",
+    learningMode: "ONLINE",
     points: 210,
     badges: ["10 Sessions", "Skill Mentor", "Top Contributor"],
     rating: 4.8,
     reviewCount: 15,
-    isSample: true,
   },
   {
     id: "sample_ananya",
@@ -67,17 +59,13 @@ export const SAMPLE_STUDENTS = [
     department: "Design & Media Arts",
     year: "2nd Year",
     bio: "Campus club media lead. I do video edits in Premiere Pro, poster designs, and event photography. Looking to learn modern web design and marketing.",
-    profileImage: "",
-    teachingSkills: ["Photography", "Video Editing", "Graphic Design"],
-    learningSkills: ["Marketing", "Communication", "React"],
-    skillLevel: "Intermediate",
+    skillLevel: "INTERMEDIATE",
     availability: "Fridays and Sunday mornings",
-    learningMode: "Offline",
+    learningMode: "OFFLINE",
     points: 80,
     badges: ["First Exchange", "Community Builder"],
     rating: 4.7,
     reviewCount: 5,
-    isSample: true,
   },
   {
     id: "sample_vikram",
@@ -87,17 +75,13 @@ export const SAMPLE_STUDENTS = [
     department: "Mechanical Engineering",
     year: "3rd Year",
     bio: "Robotics lab enthusiast. Comfortable with SolidWorks/Fusion 360, 3D printing, and basic C++. Looking for help with Python scripting for ROS.",
-    profileImage: "",
-    teachingSkills: ["Engineering", "CAD Modeling", "3D Printing", "Mathematics"],
-    learningSkills: ["Python", "C++", "Robotics"],
-    skillLevel: "Advanced",
+    skillLevel: "ADVANCED",
     availability: "Weekdays 4 PM - 7 PM",
-    learningMode: "Both",
+    learningMode: "BOTH",
     points: 95,
     badges: ["First Exchange", "Skill Mentor"],
     rating: 4.9,
     reviewCount: 6,
-    isSample: true,
   },
   {
     id: "sample_priya",
@@ -107,22 +91,33 @@ export const SAMPLE_STUDENTS = [
     department: "Business & Management",
     year: "1st Year",
     bio: "Fresher exploring digital branding and events. Can teach basic acoustic guitar chords and public speaking. Looking to learn Figma basics.",
-    profileImage: "",
-    teachingSkills: ["Music", "Marketing", "Communication"],
-    learningSkills: ["UI/UX", "Figma", "Web Development"],
-    skillLevel: "Beginner",
+    skillLevel: "BEGINNER",
     availability: "Saturday whole day",
-    learningMode: "Offline",
+    learningMode: "OFFLINE",
     points: 45,
     badges: ["First Exchange"],
     rating: 5.0,
     reviewCount: 3,
-    isSample: true,
+  },
+  {
+    id: "demo_rahul",
+    name: "Rahul Sharma",
+    email: "rahul.sharma@campus.edu",
+    college: "Tech Institute of Engineering",
+    department: "Computer Science",
+    year: "3rd Year",
+    bio: "Curious student passionate about Python scripting and Data Analysis. Looking to learn modern UI/UX design and React web development!",
+    skillLevel: "INTERMEDIATE",
+    availability: "Evenings after 6 PM & Weekends",
+    learningMode: "BOTH",
+    points: 65,
+    badges: ["First Exchange", "Skill Mentor"],
+    rating: 4.8,
+    reviewCount: 4,
   }
 ];
 
-export const SKILL_CATEGORIES = [
-  "All",
+const CATEGORIES = [
   "Programming",
   "AI & Machine Learning",
   "UI/UX",
@@ -134,5 +129,40 @@ export const SKILL_CATEGORIES = [
   "Engineering",
   "Academics",
   "Sports",
-  "Other",
+  "Other"
 ];
+
+async function main() {
+  console.log("🌱 Seeding Supabase database with Prisma...");
+
+  // 1. Seed Categories
+  for (const catName of CATEGORIES) {
+    await prisma.category.upsert({
+      where: { name: catName },
+      update: {},
+      create: { name: catName },
+    });
+  }
+  console.log("✅ Seeded categories.");
+
+  // 2. Seed Students
+  for (const student of SAMPLE_STUDENTS) {
+    await prisma.user.upsert({
+      where: { email: student.email },
+      update: student,
+      create: student,
+    });
+  }
+  console.log("✅ Seeded campus students.");
+
+  console.log("🎉 Database seeding complete!");
+}
+
+main()
+  .catch((e) => {
+    console.error("Seeding error:", e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

@@ -148,7 +148,7 @@ export default function Settings() {
               <p className="text-xs text-ink/60 mt-0.5">
                 {isFirebaseConfigured
                   ? "Connected to Firestore and Firebase Authentication."
-                  : "Using fast local data with realistic student samples. See README.md Step 7 to connect your live Firebase project!"}
+                  : "Running in local demo storage mode with offline persistence."}
               </p>
             </div>
           </div>
@@ -156,7 +156,7 @@ export default function Settings() {
 
         <button
           type="submit"
-          className="px-6 py-2.5 rounded-full bg-ink text-white text-sm font-medium hover:bg-ink/90 transition-colors"
+          className="px-6 py-2.5 rounded-full bg-ink text-white text-sm font-medium hover:bg-ink/90"
         >
           Save Preferences
         </button>

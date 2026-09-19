@@ -51,7 +51,7 @@ export default function Notifications() {
         {unreadCount > 0 && (
           <button
             onClick={handleMarkAllRead}
-            className="text-xs font-semibold px-4 py-2 rounded-full bg-sand border border-mist text-ink hover:bg-white transition-colors"
+            className="text-xs font-semibold px-4 py-2 rounded-full bg-sand border border-mist text-ink hover:bg-white"
           >
             Mark all as read
           </button>
@@ -76,7 +76,7 @@ export default function Notifications() {
               <div
                 key={notif.id}
                 onClick={() => !notif.read && handleMarkRead(notif.id)}
-                className={`p-5 rounded-2xl border transition-all flex items-start gap-4 ${
+                className={`p-5 rounded-2xl border flex items-start gap-4 ${
                   notif.read
                     ? "bg-white border-mist text-ink/80"
                     : "bg-sand/30 border-coral/30 shadow-sm"

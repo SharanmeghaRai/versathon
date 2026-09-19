@@ -1,5 +1,5 @@
-// Data Service: handles querying and saving data for all 14 pages.
-// Seamlessly delegates to live Firestore if configured, or local demo storage.
+// Data Service: interacts with the Node.js Express backend (/api/...)
+// with seamless fallback to Firebase (if configured) or local storage.
 
 import {
   collection,
@@ -11,26 +11,48 @@ import {
   updateDoc,
   query,
   where,
-  orderBy,
-  onSnapshot
 } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "../firebase";
 import { SAMPLE_STUDENTS } from "../data/sampleStudents";
 
+const API_BASE = "/api";
+
+// Helper to make safe API calls to Node.js Express backend
+async function apiCall(endpoint, options = {}) {
+  try {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      headers: { "Content-Type": "application/json" },
+      ...options,
+    });
+    if (!res.ok) throw new Error(`API error: ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    // Backend offline or error - return null to trigger fallback
+    return null;
+  }
+}
+
 // --- STUDENTS / USERS ---
 
 export async function fetchAllStudents(currentUserId) {
+  // 1. Try Node.js Express Backend
+  const backendData = await apiCall(`/students?excludeId=${currentUserId || ""}`);
+  if (backendData && Array.isArray(backendData) && backendData.length > 0) {
+    return backendData;
+  }
+
+  // 2. Fallback to Firebase if configured
   let list = [];
   if (isFirebaseConfigured && db) {
     try {
       const snap = await getDocs(collection(db, "users"));
       list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     } catch (err) {
-      console.warn("Firestore fetch error, falling back to sample students:", err);
+      console.warn("Firestore fetch error, falling back to local samples:", err);
     }
   }
 
-  // If Firestore has no students or error, include sample students
+  // 3. Fallback to local storage or defaults
   if (list.length === 0) {
     const local = localStorage.getItem("campus_demo_students");
     list = local ? JSON.parse(local) : SAMPLE_STUDENTS;
@@ -40,36 +62,83 @@ export async function fetchAllStudents(currentUserId) {
 }
 
 export async function fetchStudentById(id) {
+  // 1. Try Node.js backend
+  const backendStudent = await apiCall(`/students/${id}`);
+  if (backendStudent && backendStudent.id) {
+    return backendStudent;
+  }
+
+  // 2. Firebase
   if (isFirebaseConfigured && db) {
     try {
       const snap = await getDoc(doc(db, "users", id));
       if (snap.exists()) return { id: snap.id, ...snap.data() };
     } catch (err) {
-      console.warn("Firestore fetch single student error:", err);
+      console.warn("Firestore fetch student error:", err);
     }
   }
+
+  // 3. Local fallback
   const local = localStorage.getItem("campus_demo_students");
   const list = local ? JSON.parse(local) : SAMPLE_STUDENTS;
   return list.find((s) => s.id === id) || null;
 }
 
-// Seed sample students to Firestore
-export async function seedFirestoreWithSamples() {
-  if (!isFirebaseConfigured || !db) return false;
-  try {
-    for (const student of SAMPLE_STUDENTS) {
-      await setDoc(doc(db, "users", student.id), student);
+export async function updateStudentProfile(id, data) {
+  // 1. Try Node.js backend
+  const updated = await apiCall(`/students/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+  if (updated) return updated;
+
+  // 2. Firebase
+  if (isFirebaseConfigured && db) {
+    try {
+      await setDoc(doc(db, "users", id), data, { merge: true });
+      return data;
+    } catch (err) {
+      console.warn("Firestore update error:", err);
     }
-    return true;
-  } catch (err) {
-    console.error("Error seeding samples:", err);
-    return false;
   }
+
+  // 3. Local storage fallback
+  const local = localStorage.getItem("campus_demo_students");
+  let list = local ? JSON.parse(local) : SAMPLE_STUDENTS;
+  list = list.map((s) => (s.id === id ? { ...s, ...data } : s));
+  localStorage.setItem("campus_demo_students", JSON.stringify(list));
+  return data;
+}
+
+// Seed sample students to Firestore or Node.js backend
+export async function seedFirestoreWithSamples() {
+  const res = await apiCall("/admin/reset", { method: "POST" });
+  if (res) return true;
+
+  if (isFirebaseConfigured && db) {
+    try {
+      for (const student of SAMPLE_STUDENTS) {
+        await setDoc(doc(db, "users", student.id), student);
+      }
+      return true;
+    } catch (err) {
+      console.error("Error seeding samples to Firestore:", err);
+      return false;
+    }
+  }
+  return false;
 }
 
 // --- REQUESTS ---
 
 export async function fetchRequests(userId) {
+  // 1. Try Node.js backend
+  const backendRequests = await apiCall(`/requests?userId=${userId || ""}`);
+  if (backendRequests && backendRequests.received && backendRequests.sent) {
+    return backendRequests;
+  }
+
+  // 2. Firebase
   if (isFirebaseConfigured && db && userId) {
     try {
       const recSnap = await getDocs(
@@ -87,6 +156,7 @@ export async function fetchRequests(userId) {
     }
   }
 
+  // 3. Local storage fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_requests") || "[]");
   return {
     received: stored.filter((r) => r.toId === userId),
@@ -95,6 +165,14 @@ export async function fetchRequests(userId) {
 }
 
 export async function createExchangeRequest(reqData) {
+  // 1. Try Node.js backend
+  const backendReq = await apiCall("/requests", {
+    method: "POST",
+    body: JSON.stringify(reqData),
+  });
+  if (backendReq) return backendReq.id;
+
+  // 2. Firebase
   if (isFirebaseConfigured && db) {
     try {
       const docRef = await addDoc(collection(db, "requests"), reqData);
@@ -104,12 +182,12 @@ export async function createExchangeRequest(reqData) {
     }
   }
 
+  // 3. Local fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_requests") || "[]");
   const newReq = { ...reqData, id: "req_" + Date.now() };
   stored.unshift(newReq);
   localStorage.setItem("campus_demo_requests", JSON.stringify(stored));
 
-  // Also create a notification for the recipient
   await createNotification({
     userId: reqData.toId,
     title: "New Skill Exchange Request",
@@ -122,6 +200,14 @@ export async function createExchangeRequest(reqData) {
 }
 
 export async function updateExchangeRequestStatus(requestId, status, reqObj) {
+  // 1. Try Node.js backend
+  const backendRes = await apiCall(`/requests/${requestId}`, {
+    method: "PATCH",
+    body: JSON.stringify({ status }),
+  });
+  if (backendRes) return;
+
+  // 2. Firebase
   if (isFirebaseConfigured && db) {
     try {
       await updateDoc(doc(db, "requests", requestId), { status });
@@ -130,6 +216,7 @@ export async function updateExchangeRequestStatus(requestId, status, reqObj) {
     }
   }
 
+  // 3. Local fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_requests") || "[]");
   const updated = stored.map((r) => (r.id === requestId ? { ...r, status } : r));
   localStorage.setItem("campus_demo_requests", JSON.stringify(updated));
@@ -148,6 +235,13 @@ export async function updateExchangeRequestStatus(requestId, status, reqObj) {
 // --- CHAT MESSAGES ---
 
 export async function fetchMessages(chatId) {
+  // 1. Try Node.js backend
+  const backendMsgs = await apiCall(`/messages/${chatId}`);
+  if (backendMsgs && Array.isArray(backendMsgs)) {
+    return backendMsgs;
+  }
+
+  // 2. Firebase
   if (isFirebaseConfigured && db) {
     try {
       const q = query(collection(db, "messages"), where("chatId", "==", chatId));
@@ -159,6 +253,7 @@ export async function fetchMessages(chatId) {
     }
   }
 
+  // 3. Local fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_messages") || "[]");
   return stored
     .filter((m) => m.chatId === chatId)
@@ -166,6 +261,14 @@ export async function fetchMessages(chatId) {
 }
 
 export async function sendChatMessage(msgData) {
+  // 1. Try Node.js backend
+  const backendMsg = await apiCall("/messages", {
+    method: "POST",
+    body: JSON.stringify(msgData),
+  });
+  if (backendMsg) return backendMsg.id;
+
+  // 2. Firebase
   if (isFirebaseConfigured && db) {
     try {
       const docRef = await addDoc(collection(db, "messages"), msgData);
@@ -175,6 +278,7 @@ export async function sendChatMessage(msgData) {
     }
   }
 
+  // 3. Local fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_messages") || "[]");
   const newMsg = { ...msgData, id: "msg_" + Date.now() };
   stored.push(newMsg);
@@ -185,6 +289,13 @@ export async function sendChatMessage(msgData) {
 // --- LEARNING SESSIONS ---
 
 export async function fetchSessions(userId) {
+  // 1. Try Node.js backend
+  const backendSessions = await apiCall(`/sessions?userId=${userId || ""}`);
+  if (backendSessions && Array.isArray(backendSessions)) {
+    return backendSessions;
+  }
+
+  // 2. Firebase
   if (isFirebaseConfigured && db && userId) {
     try {
       const teacherSnap = await getDocs(
@@ -197,7 +308,6 @@ export async function fetchSessions(userId) {
         ...teacherSnap.docs.map((d) => ({ id: d.id, ...d.data() })),
         ...learnerSnap.docs.map((d) => ({ id: d.id, ...d.data() })),
       ];
-      // Deduplicate by ID
       const unique = Array.from(new Map(combined.map((s) => [s.id, s])).values());
       return unique.sort((a, b) => new Date(a.date) - new Date(b.date));
     } catch (err) {
@@ -205,11 +315,20 @@ export async function fetchSessions(userId) {
     }
   }
 
+  // 3. Local fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_sessions") || "[]");
   return stored.filter((s) => s.teacherId === userId || s.learnerId === userId);
 }
 
 export async function createLearningSession(sessionData) {
+  // 1. Try Node.js backend
+  const backendSess = await apiCall("/sessions", {
+    method: "POST",
+    body: JSON.stringify(sessionData),
+  });
+  if (backendSess) return backendSess.id;
+
+  // 2. Firebase
   if (isFirebaseConfigured && db) {
     try {
       const docRef = await addDoc(collection(db, "sessions"), sessionData);
@@ -219,12 +338,12 @@ export async function createLearningSession(sessionData) {
     }
   }
 
+  // 3. Local fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_sessions") || "[]");
   const newSession = { ...sessionData, id: "sess_" + Date.now() };
   stored.push(newSession);
   localStorage.setItem("campus_demo_sessions", JSON.stringify(stored));
 
-  // Notify the other party
   const recipientId =
     sessionData.currentUserId === sessionData.teacherId
       ? sessionData.learnerId
@@ -241,6 +360,14 @@ export async function createLearningSession(sessionData) {
 }
 
 export async function updateSessionStatus(sessionId, status) {
+  // 1. Try Node.js backend
+  const backendRes = await apiCall(`/sessions/${sessionId}`, {
+    method: "PATCH",
+    body: JSON.stringify({ status }),
+  });
+  if (backendRes) return;
+
+  // 2. Firebase
   if (isFirebaseConfigured && db) {
     try {
       await updateDoc(doc(db, "sessions", sessionId), { status });
@@ -249,6 +376,7 @@ export async function updateSessionStatus(sessionId, status) {
     }
   }
 
+  // 3. Local fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_sessions") || "[]");
   const updated = stored.map((s) => (s.id === sessionId ? { ...s, status } : s));
   localStorage.setItem("campus_demo_sessions", JSON.stringify(updated));
@@ -257,6 +385,13 @@ export async function updateSessionStatus(sessionId, status) {
 // --- NOTIFICATIONS ---
 
 export async function fetchNotifications(userId) {
+  // 1. Try Node.js backend
+  const backendNotifs = await apiCall(`/notifications?userId=${userId || ""}`);
+  if (backendNotifs && Array.isArray(backendNotifs)) {
+    return backendNotifs;
+  }
+
+  // 2. Firebase
   if (isFirebaseConfigured && db && userId) {
     try {
       const q = query(
@@ -271,6 +406,7 @@ export async function fetchNotifications(userId) {
     }
   }
 
+  // 3. Local fallback
   const stored = JSON.parse(localStorage.getItem("campus_demo_notifications") || "[]");
   return stored
     .filter((n) => n.userId === userId)
@@ -301,6 +437,11 @@ export async function createNotification(notifData) {
 }
 
 export async function markNotificationAsRead(notifId) {
+  const backendRes = await apiCall(`/notifications/${notifId}/read`, {
+    method: "PATCH",
+  });
+  if (backendRes) return;
+
   if (isFirebaseConfigured && db) {
     try {
       await updateDoc(doc(db, "notifications", notifId), { read: true });
@@ -317,6 +458,11 @@ export async function markNotificationAsRead(notifId) {
 // --- REVIEWS ---
 
 export async function fetchReviewsForTeacher(teacherId) {
+  const backendReviews = await apiCall(`/reviews/${teacherId}`);
+  if (backendReviews && Array.isArray(backendReviews)) {
+    return backendReviews;
+  }
+
   if (isFirebaseConfigured && db && teacherId) {
     try {
       const q = query(collection(db, "reviews"), where("teacherId", "==", teacherId));
@@ -332,11 +478,13 @@ export async function fetchReviewsForTeacher(teacherId) {
 }
 
 export async function submitReview(reviewData) {
-  const payload = {
-    ...reviewData,
-    createdAt: Date.now(),
-  };
+  const backendRes = await apiCall("/reviews", {
+    method: "POST",
+    body: JSON.stringify(reviewData),
+  });
+  if (backendRes) return true;
 
+  const payload = { ...reviewData, createdAt: Date.now() };
   if (isFirebaseConfigured && db) {
     try {
       await addDoc(collection(db, "reviews"), payload);
@@ -348,20 +496,19 @@ export async function submitReview(reviewData) {
   const stored = JSON.parse(localStorage.getItem("campus_demo_reviews") || "[]");
   stored.push({ ...payload, id: "rev_" + Date.now() });
   localStorage.setItem("campus_demo_reviews", JSON.stringify(stored));
-
-  // Award +5 points to the teacher for receiving a review
   return true;
 }
 
 // --- REPORTS / SAFETY ---
 
 export async function reportUser(reportData) {
-  const payload = {
-    ...reportData,
-    createdAt: Date.now(),
-    status: "pending",
-  };
+  const backendRes = await apiCall("/admin/reports", {
+    method: "POST",
+    body: JSON.stringify(reportData),
+  });
+  if (backendRes) return true;
 
+  const payload = { ...reportData, createdAt: Date.now(), status: "pending" };
   if (isFirebaseConfigured && db) {
     try {
       await addDoc(collection(db, "reports"), payload);
@@ -378,6 +525,11 @@ export async function reportUser(reportData) {
 }
 
 export async function fetchAllReports() {
+  const backendReports = await apiCall("/admin/reports");
+  if (backendReports && Array.isArray(backendReports)) {
+    return backendReports;
+  }
+
   if (isFirebaseConfigured && db) {
     try {
       const snap = await getDocs(collection(db, "reports"));
@@ -387,4 +539,10 @@ export async function fetchAllReports() {
     }
   }
   return JSON.parse(localStorage.getItem("campus_demo_reports") || "[]");
+}
+
+export async function fetchAdminStats() {
+  const stats = await apiCall("/admin/stats");
+  if (stats) return stats;
+  return null;
 }

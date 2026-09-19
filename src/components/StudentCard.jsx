@@ -10,12 +10,12 @@ export default function StudentCard({ student, isMatch }) {
     : "?";
 
   return (
-    <div className="bg-white rounded-2xl border border-mist p-5 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group">
+    <div className="bg-white rounded-2xl border border-mist p-5 shadow-sm hover:border-ink/30 flex flex-col justify-between">
       <div>
         {/* Card Header */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-12 h-12 rounded-full bg-ink text-white flex items-center justify-center font-display font-bold text-base shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-12 h-12 rounded-full bg-ink text-white flex items-center justify-center font-display font-bold text-base shrink-0">
               {initials}
             </div>
             <div className="min-w-0">
@@ -99,7 +99,7 @@ export default function StudentCard({ student, isMatch }) {
       {/* Button */}
       <Link
         to={`/student/${student.id}`}
-        className="mt-5 block w-full text-center py-2.5 rounded-full bg-ink text-white text-xs font-semibold hover:bg-ink/90 transition-colors shadow-sm"
+        className="mt-5 block w-full text-center py-2.5 rounded-full bg-ink text-white text-xs font-semibold hover:bg-ink/90 shadow-sm"
       >
         View Profile & Connect →
       </Link>

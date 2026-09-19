@@ -25,14 +25,12 @@ export default function Discover() {
     load();
   }, [currentUser]);
 
-  // Extract unique departments for dropdown
   const departments = [
     "All",
     ...Array.from(new Set(students.map((s) => s.department).filter(Boolean))),
   ];
 
   const filtered = students.filter((s) => {
-    // 1. Text Search
     if (search.trim()) {
       const q = search.toLowerCase();
       const haystack = [
@@ -48,7 +46,6 @@ export default function Discover() {
       if (!haystack.includes(q)) return false;
     }
 
-    // 2. Category Filter
     if (selectedCategory !== "All") {
       const cat = selectedCategory.toLowerCase();
       const hasSkillInCat = [...(s.teachingSkills || []), ...(s.learningSkills || [])]
@@ -56,13 +53,8 @@ export default function Discover() {
       if (!hasSkillInCat) return false;
     }
 
-    // 3. Department Filter
     if (selectedDept !== "All" && s.department !== selectedDept) return false;
-
-    // 4. Skill Level Filter
     if (selectedLevel !== "All" && s.skillLevel !== selectedLevel) return false;
-
-    // 5. Mode Filter
     if (selectedMode !== "All" && s.learningMode !== "Both" && s.learningMode !== selectedMode) {
       return false;
     }
@@ -110,7 +102,7 @@ export default function Discover() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap ${
                 isSelected
                   ? "bg-ink text-white shadow-sm"
                   : "bg-white border border-mist text-ink/70 hover:border-coral/50 hover:text-ink"
@@ -173,7 +165,7 @@ export default function Discover() {
               setSelectedLevel("All");
               setSelectedMode("All");
             }}
-            className="w-full p-2 rounded-xl border border-mist text-ink/60 hover:text-coral font-semibold transition-colors"
+            className="w-full p-2 rounded-xl border border-mist text-ink/60 hover:text-coral font-semibold"
           >
             Reset Filters
           </button>

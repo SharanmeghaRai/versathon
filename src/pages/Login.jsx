@@ -34,7 +34,6 @@ export default function Login() {
         setLoading(false);
       }
     } else {
-      // Local Demo Mode Login
       loginDemoUser();
       setLoading(false);
       navigate("/dashboard");
@@ -58,14 +57,14 @@ export default function Login() {
         <div className="mb-6 p-4 rounded-2xl bg-sand/60 border border-mist text-xs">
           <p className="font-bold text-ink mb-1">Quick Preview / Testing:</p>
           <p className="text-ink/65 mb-3">
-            Want to test all 14 pages right now without typing?
+            Instant sign-in for evaluator testing and offline demo.
           </p>
           <button
             type="button"
             onClick={handleDemoLogin}
-            className="w-full py-2.5 rounded-full bg-ink text-white font-semibold text-xs hover:bg-ink/90 transition-colors"
+            className="w-full py-2.5 rounded-full bg-ink text-white font-semibold text-xs hover:bg-ink/90"
           >
-            ⚡ One-Click Demo Login (as Rahul)
+            One-Click Test Login (Rahul)
           </button>
         </div>
 
@@ -103,7 +102,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-full bg-coral text-white font-semibold text-sm hover:bg-coral/90 disabled:opacity-50 transition-colors shadow-sm"
+            className="w-full py-3 rounded-full bg-coral text-white font-semibold text-sm hover:bg-coral/90 disabled:opacity-50 shadow-sm"
           >
             {loading ? "Logging in..." : "Log In"}
           </button>

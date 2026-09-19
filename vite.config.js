@@ -5,4 +5,12 @@ import react from '@vitejs/plugin-react'
 // You will not need to edit this file.
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+    },
+  },
 })

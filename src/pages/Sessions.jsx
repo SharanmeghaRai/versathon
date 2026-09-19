@@ -22,10 +22,9 @@ export default function Sessions() {
   const [showModal, setShowModal] = useState(showNewParam);
   const [activeTab, setActiveTab] = useState("all");
 
-  // Form State
   const [formData, setFormData] = useState({
     skill: skillParam || "",
-    role: "teacher", // "teacher" (I teach) or "learner" (I learn)
+    role: "teacher",
     partnerId: "",
     partnerName: partnerParam || "",
     date: "",
@@ -89,15 +88,12 @@ export default function Sessions() {
   async function handleStatusChange(sessionId, newStatus, session) {
     await updateSessionStatus(sessionId, newStatus);
 
-    // Gamification Points handling upon completion:
-    // Teacher gets +20 points, Learner gets +10 points
     if (newStatus === "Completed") {
       const isTeacher = session.teacherId === currentUser.uid;
       const pointsToAdd = isTeacher ? 20 : 10;
       const currentPoints = profile?.points || 0;
       const newPoints = currentPoints + pointsToAdd;
 
-      // Check badges
       const existingBadges = profile?.badges || [];
       const updatedBadges = [...existingBadges];
       if (!updatedBadges.includes("First Exchange")) {
@@ -138,7 +134,7 @@ export default function Sessions() {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-coral text-white text-sm font-medium hover:bg-coral/90 transition-all shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-coral text-white text-sm font-medium hover:bg-coral/90 shadow-sm"
         >
           <CalendarIcon className="w-4 h-4" />
           <span>+ Schedule New Session</span>
@@ -163,7 +159,7 @@ export default function Sessions() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors ${
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider ${
               activeTab.toLowerCase() === tab.toLowerCase()
                 ? "bg-ink text-white"
                 : "bg-white border border-mist text-ink/60 hover:text-ink"
@@ -205,7 +201,7 @@ export default function Sessions() {
             return (
               <div
                 key={session.id}
-                className="bg-white rounded-2xl border border-mist p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
+                className="bg-white rounded-2xl border border-mist p-6 shadow-sm flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-3">
@@ -251,7 +247,7 @@ export default function Sessions() {
                     <>
                       <button
                         onClick={() => handleStatusChange(session.id, "Completed", session)}
-                        className="px-4 py-1.5 rounded-full bg-emerald-600 text-white text-xs font-medium hover:bg-emerald-700 transition-colors"
+                        className="px-4 py-1.5 rounded-full bg-emerald-600 text-white text-xs font-medium hover:bg-emerald-700"
                       >
                         ✓ Mark Completed (+{isTeacher ? "20" : "10"} pts)
                       </button>
@@ -266,7 +262,7 @@ export default function Sessions() {
                   {session.status === "Completed" && !isTeacher && (
                     <Link
                       to={`/reviews?teacherId=${session.teacherId}&teacherName=${encodeURIComponent(session.teacherName)}&skill=${encodeURIComponent(session.skill)}`}
-                      className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-sun/30 text-ink text-xs font-semibold hover:bg-sun/40 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-sun/30 text-ink text-xs font-semibold hover:bg-sun/40"
                     >
                       <SparklesIcon className="w-3.5 h-3.5" />
                       <span>Leave a Review</span>

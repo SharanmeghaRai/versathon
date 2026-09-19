@@ -76,7 +76,6 @@ export default function Signup() {
         setLoading(false);
       }
     } else {
-      // Local Demo Mode Registration
       const newUid = "user_" + Date.now();
       const mockUser = {
         uid: newUid,
@@ -157,7 +156,7 @@ export default function Signup() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-full bg-coral text-white font-semibold text-sm hover:bg-coral/90 disabled:opacity-50 transition-colors shadow-sm"
+            className="w-full py-3 rounded-full bg-coral text-white font-semibold text-sm hover:bg-coral/90 disabled:opacity-50 shadow-sm"
           >
             {loading ? "Setting up account..." : "Sign Up & Get Started"}
           </button>

@@ -84,7 +84,7 @@ export default function Chat() {
         </div>
         <Link
           to="/sessions"
-          className="text-xs sm:text-sm font-medium px-4 py-2 rounded-full bg-sand border border-mist hover:bg-white text-ink transition-colors"
+          className="text-xs sm:text-sm font-medium px-4 py-2 rounded-full bg-sand border border-mist hover:bg-white text-ink"
         >
           View Sessions →
         </Link>
@@ -103,7 +103,7 @@ export default function Chat() {
           </p>
           <Link
             to="/discover"
-            className="inline-block px-6 py-3 rounded-full bg-coral text-white font-medium hover:bg-coral/90 transition-colors"
+            className="inline-block px-6 py-3 rounded-full bg-coral text-white font-medium hover:bg-coral/90"
           >
             Discover Students
           </Link>
@@ -123,7 +123,7 @@ export default function Chat() {
                   <button
                     key={chat.id}
                     onClick={() => setSelectedChat(chat)}
-                    className={`w-full text-left p-4 transition-colors flex items-start gap-3 ${
+                    className={`w-full text-left p-4 flex items-start gap-3 ${
                       isSelected ? "bg-white border-l-4 border-l-coral shadow-sm" : "hover:bg-sand/60"
                     }`}
                   >
@@ -210,7 +210,7 @@ export default function Chat() {
                   />
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-xl bg-coral text-white font-medium text-sm hover:bg-coral/90 transition-colors shadow-sm"
+                    className="px-5 py-2.5 rounded-xl bg-coral text-white font-medium text-sm hover:bg-coral/90 shadow-sm"
                   >
                     Send
                   </button>

@@ -62,7 +62,7 @@ export default function Navbar() {
               <Link
                 key={to}
                 to={to}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-sm font-medium ${
                   isActive ? "text-coral font-bold" : "text-ink/75 hover:text-ink"
                 }`}
               >
@@ -79,12 +79,12 @@ export default function Navbar() {
               {/* Notification Bell */}
               <Link
                 to="/notifications"
-                className="relative p-2 rounded-full hover:bg-white text-ink/70 hover:text-ink transition-colors"
+                className="relative p-2 rounded-full hover:bg-white text-ink/70 hover:text-ink"
                 title="Notifications"
               >
                 <BellIcon className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-coral text-white text-[10px] font-bold flex items-center justify-center animate-pulse">
+                  <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-coral text-white text-[10px] font-bold flex items-center justify-center">
                     {unreadCount}
                   </span>
                 )}
@@ -93,7 +93,7 @@ export default function Navbar() {
               {/* Admin Link */}
               <Link
                 to="/admin"
-                className="text-xs font-semibold px-3 py-1.5 rounded-full bg-sand border border-mist text-ink hover:bg-white transition-colors flex items-center gap-1"
+                className="text-xs font-semibold px-3 py-1.5 rounded-full bg-sand border border-mist text-ink hover:bg-white flex items-center gap-1"
                 title="Admin Dashboard"
               >
                 <ShieldCheckIcon className="w-3.5 h-3.5 text-coral" />
@@ -103,7 +103,7 @@ export default function Navbar() {
               {/* Profile Link */}
               <Link
                 to="/profile"
-                className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-full bg-white border border-mist text-xs font-semibold text-ink hover:border-coral transition-colors"
+                className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-full bg-white border border-mist text-xs font-semibold text-ink hover:border-coral"
               >
                 <span className="w-6 h-6 rounded-full bg-coral text-white flex items-center justify-center text-[11px] font-bold">
                   {profile?.name?.[0]?.toUpperCase() || "U"}
@@ -113,19 +113,19 @@ export default function Navbar() {
 
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 rounded-full bg-ink text-white text-xs font-medium hover:bg-ink/90 transition-colors shadow-sm"
+                className="px-4 py-2 rounded-full bg-ink text-white text-xs font-medium hover:bg-ink/90 shadow-sm"
               >
                 Log out
               </button>
             </>
           ) : (
             <div className="flex items-center gap-3">
-              <Link to="/login" className="text-sm font-semibold text-ink hover:text-coral transition-colors">
+              <Link to="/login" className="text-sm font-semibold text-ink hover:text-coral">
                 Log in
               </Link>
               <Link
                 to="/signup"
-                className="px-5 py-2.5 rounded-full bg-coral text-white text-sm font-semibold hover:bg-coral/90 transition-colors shadow-sm"
+                className="px-5 py-2.5 rounded-full bg-coral text-white text-sm font-semibold hover:bg-coral/90 shadow-sm"
               >
                 Get Started
               </Link>

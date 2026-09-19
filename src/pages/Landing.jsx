@@ -31,13 +31,13 @@ export default function Landing() {
         <div className="mt-8 flex flex-wrap justify-center items-center gap-4">
           <Link
             to="/signup"
-            className="px-8 py-3.5 rounded-full bg-coral text-white font-bold text-sm sm:text-base hover:bg-coral/90 hover:scale-105 transition-all shadow-md shadow-coral/20"
+            className="px-8 py-3.5 rounded-full bg-coral text-white font-bold text-sm sm:text-base hover:bg-coral/90 shadow-md shadow-coral/20"
           >
             Get Started Free →
           </Link>
           <Link
             to="/discover"
-            className="px-7 py-3.5 rounded-full bg-white border border-mist text-ink font-bold text-sm sm:text-base hover:border-ink/40 transition-all shadow-sm"
+            className="px-7 py-3.5 rounded-full bg-white border border-mist text-ink font-bold text-sm sm:text-base hover:border-ink/40 shadow-sm"
           >
             Explore Skills
           </Link>
@@ -56,7 +56,7 @@ export default function Landing() {
             </div>
 
             <div className="flex flex-col items-center">
-              <span className="px-3 py-1 rounded-full bg-coral text-white text-[11px] font-extrabold uppercase tracking-wider animate-bounce">
+              <span className="px-3 py-1 rounded-full bg-coral text-white text-[11px] font-extrabold uppercase tracking-wider">
                 ⚡ MATCH
               </span>
             </div>
@@ -90,7 +90,7 @@ export default function Landing() {
             {steps.map((step) => (
               <div
                 key={step.num}
-                className="p-6 rounded-2xl bg-sand/40 border border-mist/80 flex flex-col justify-between hover:shadow-md transition-shadow"
+                className="p-6 rounded-2xl bg-sand/40 border border-mist/80 flex flex-col justify-between"
               >
                 <div>
                   <span className="font-display font-black text-2xl text-coral block mb-3">
@@ -125,7 +125,7 @@ export default function Landing() {
             <Link
               key={cat}
               to={`/discover?search=${encodeURIComponent(cat)}`}
-              className="px-5 py-2.5 rounded-full bg-white border border-mist text-ink font-semibold text-xs sm:text-sm hover:border-coral hover:text-coral hover:scale-105 transition-all shadow-sm"
+              className="px-5 py-2.5 rounded-full bg-white border border-mist text-ink font-semibold text-xs sm:text-sm hover:border-coral hover:text-coral shadow-sm"
             >
               {cat}
             </Link>
@@ -144,7 +144,7 @@ export default function Landing() {
           </p>
           <Link
             to="/signup"
-            className="mt-8 inline-block px-8 py-3.5 rounded-full bg-coral text-white font-bold text-sm sm:text-base hover:bg-coral/90 hover:scale-105 transition-all shadow-lg"
+            className="mt-8 inline-block px-8 py-3.5 rounded-full bg-coral text-white font-bold text-sm sm:text-base hover:bg-coral/90 shadow-lg"
           >
             Create Your Profile Now →
           </Link>

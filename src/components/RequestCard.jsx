@@ -13,7 +13,7 @@ export default function RequestCard({ request, direction, onAccept, onDecline })
   const otherPersonName = isReceived ? request.fromName : request.toName;
 
   return (
-    <div className="bg-white rounded-2xl border border-mist p-6 shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-2xl border border-mist p-6 shadow-sm">
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -77,13 +77,13 @@ export default function RequestCard({ request, direction, onAccept, onDecline })
           <div className="flex gap-2">
             <button
               onClick={onAccept}
-              className="px-5 py-2 rounded-full bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition-colors shadow-sm"
+              className="px-5 py-2 rounded-full bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 shadow-sm"
             >
               ✓ Accept Request
             </button>
             <button
               onClick={onDecline}
-              className="px-4 py-2 rounded-full border border-mist text-ink/70 text-xs font-medium hover:bg-sand transition-colors"
+              className="px-4 py-2 rounded-full border border-mist text-ink/70 text-xs font-medium hover:bg-sand"
             >
               Decline
             </button>
@@ -94,14 +94,14 @@ export default function RequestCard({ request, direction, onAccept, onDecline })
           <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             <Link
               to={`/chat?requestId=${request.id}`}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-ink text-white text-xs font-semibold hover:bg-ink/90 transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-ink text-white text-xs font-semibold hover:bg-ink/90 shadow-sm"
             >
               <ChatIcon className="w-3.5 h-3.5" />
               <span>Open Chat</span>
             </Link>
             <Link
               to={`/sessions?new=true&partner=${encodeURIComponent(otherPersonName)}&skill=${encodeURIComponent(request.skillWanted)}`}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-sand border border-mist text-ink text-xs font-semibold hover:bg-white transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-sand border border-mist text-ink text-xs font-semibold hover:bg-white"
             >
               <CalendarIcon className="w-3.5 h-3.5 text-coral" />
               <span>Schedule Session</span>

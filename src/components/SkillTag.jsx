@@ -1,6 +1,3 @@
-// A small pill-shaped tag used to display a single skill.
-// tone="teach" -> coral (skills someone can teach)
-// tone="learn" -> navy outline (skills someone wants to learn)
 export default function SkillTag({ children, tone = "teach", onRemove }) {
   const styles =
     tone === "teach"

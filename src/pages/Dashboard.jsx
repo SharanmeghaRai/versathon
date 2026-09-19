@@ -31,21 +31,17 @@ export default function Dashboard() {
           fetchSessions(currentUser.uid),
         ]);
 
-        // Pending count
         const pend = reqs.received.filter((r) => r.status === "pending").length;
         setPendingCount(pend);
 
-        // Completed exchanges
         const completedExchanges = [...reqs.received, ...reqs.sent].filter(
           (r) => r.status === "accepted" || r.status === "completed"
         ).length;
         setCompletedCount(completedExchanges);
 
-        // Upcoming sessions
         const upcoming = sessions.filter((s) => s.status === "Scheduled");
         setUpcomingSessions(upcoming);
 
-        // Smart Matches (both ways or teaches what I want)
         const matched = students.filter((s) => isGreatMatch(profile, s));
         setMatches(matched.length > 0 ? matched.slice(0, 3) : students.slice(0, 3));
       } catch (err) {
@@ -82,13 +78,13 @@ export default function Dashboard() {
         <div className="flex flex-wrap items-center gap-2.5">
           <Link
             to="/discover"
-            className="px-5 py-2.5 rounded-full bg-coral text-white text-xs sm:text-sm font-semibold hover:bg-coral/90 transition-all shadow-sm"
+            className="px-5 py-2.5 rounded-full bg-coral text-white text-xs sm:text-sm font-semibold hover:bg-coral/90 shadow-sm"
           >
             Find Skill Matches
           </Link>
           <Link
             to="/sessions"
-            className="px-4 py-2.5 rounded-full bg-sand border border-mist text-ink text-xs sm:text-sm font-semibold hover:bg-white transition-colors"
+            className="px-4 py-2.5 rounded-full bg-sand border border-mist text-ink text-xs sm:text-sm font-semibold hover:bg-white"
           >
             My Sessions
           </Link>
@@ -214,7 +210,7 @@ export default function Dashboard() {
 
           <Link
             to="/sessions?new=true"
-            className="mt-4 block w-full text-center py-2.5 rounded-full bg-sand hover:bg-mist/60 text-ink text-xs font-semibold transition-colors border border-mist"
+            className="mt-4 block w-full text-center py-2.5 rounded-full bg-sand hover:bg-mist/60 text-ink text-xs font-semibold border border-mist"
           >
             + Schedule New Session
           </Link>
@@ -265,7 +261,7 @@ export default function Dashboard() {
 function StatCard({ label, value, highlight, icon, link }) {
   const content = (
     <div
-      className={`rounded-2xl border p-4 sm:p-5 transition-all flex flex-col justify-between ${
+      className={`rounded-2xl border p-4 sm:p-5 flex flex-col justify-between ${
         highlight
           ? "bg-sun/20 border-sun/50 shadow-sm"
           : "bg-white border-mist shadow-sm"

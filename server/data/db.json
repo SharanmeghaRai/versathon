@@ -1,0 +1,794 @@
+{
+  "students": [
+    {
+      "id": "sample_aarav",
+      "name": "Aarav Sharma",
+      "email": "aarav.sharma@campus.edu",
+      "college": "Tech Institute of Engineering",
+      "department": "Computer Science",
+      "year": "3rd Year",
+      "bio": "Working on Django backends and competitive programming. Happy to help with Python scripting and DSA prep; trying to learn React for semester project.",
+      "profileImage": "",
+      "teachingSkills": [
+        "Python",
+        "Data Structures",
+        "Figma",
+        "Git"
+      ],
+      "learningSkills": [
+        "React",
+        "Photography",
+        "Tailwind CSS"
+      ],
+      "skillLevel": "Advanced",
+      "availability": "Weekday evenings & Saturday afternoons",
+      "learningMode": "Both",
+      "points": 125,
+      "badges": [
+        "First Exchange",
+        "Skill Mentor",
+        "Top Contributor"
+      ],
+      "rating": 4.9,
+      "reviewCount": 8,
+      "isSample": true
+    },
+    {
+      "id": "sample_riya",
+      "name": "Riya Patel",
+      "email": "riya.patel@campus.edu",
+      "college": "Tech Institute of Engineering",
+      "department": "Information Technology",
+      "year": "2nd Year",
+      "bio": "Frontend focused. I spend most of my time building React interfaces and designing in Figma. Looking to get comfortable with Python backend and APIs.",
+      "profileImage": "",
+      "teachingSkills": [
+        "React",
+        "UI/UX",
+        "JavaScript",
+        "Tailwind CSS"
+      ],
+      "learningSkills": [
+        "Python",
+        "Video Editing",
+        "Machine Learning"
+      ],
+      "skillLevel": "Intermediate",
+      "availability": "Weekends & Tuesday/Thursday afternoons",
+      "learningMode": "Both",
+      "points": 290,
+      "badges": [
+        "First Exchange",
+        "Community Builder",
+        "Skill Mentor"
+      ],
+      "rating": 5,
+      "reviewCount": 6,
+      "isSample": true
+    },
+    {
+      "id": "sample_rohan",
+      "name": "Rohan Verma",
+      "email": "rohan.verma@campus.edu",
+      "college": "Tech Institute of Engineering",
+      "department": "AI & Data Science",
+      "year": "4th Year",
+      "bio": "Senior year working on CV projects and PyTorch. Can walk anyone through Python fundamentals, NumPy, and SQL. Want practice with presentation skills.",
+      "profileImage": "",
+      "teachingSkills": [
+        "AI & Machine Learning",
+        "Python",
+        "SQL",
+        "Statistics"
+      ],
+      "learningSkills": [
+        "Communication",
+        "Public Speaking",
+        "UI/UX"
+      ],
+      "skillLevel": "Advanced",
+      "availability": "Flexible on weekdays after 5 PM",
+      "learningMode": "Online",
+      "points": 210,
+      "badges": [
+        "10 Sessions",
+        "Skill Mentor",
+        "Top Contributor"
+      ],
+      "rating": 4.8,
+      "reviewCount": 15,
+      "isSample": true
+    },
+    {
+      "id": "sample_ananya",
+      "name": "Ananya Iyer",
+      "email": "ananya.iyer@campus.edu",
+      "college": "Tech Institute of Engineering",
+      "department": "Design & Media Arts",
+      "year": "2nd Year",
+      "bio": "Campus club media lead. I do video edits in Premiere Pro, poster designs, and event photography. Looking to learn modern web design and marketing.",
+      "profileImage": "",
+      "teachingSkills": [
+        "Photography",
+        "Video Editing",
+        "Graphic Design"
+      ],
+      "learningSkills": [
+        "Marketing",
+        "Communication",
+        "React"
+      ],
+      "skillLevel": "Intermediate",
+      "availability": "Fridays and Sunday mornings",
+      "learningMode": "Offline",
+      "points": 80,
+      "badges": [
+        "First Exchange",
+        "Community Builder"
+      ],
+      "rating": 4.7,
+      "reviewCount": 5,
+      "isSample": true
+    },
+    {
+      "id": "sample_vikram",
+      "name": "Vikram Malhotra",
+      "email": "vikram.m@campus.edu",
+      "college": "Tech Institute of Engineering",
+      "department": "Mechanical Engineering",
+      "year": "3rd Year",
+      "bio": "Robotics lab enthusiast. Comfortable with SolidWorks/Fusion 360, 3D printing, and basic C++. Looking for help with Python scripting for ROS.",
+      "profileImage": "",
+      "teachingSkills": [
+        "Engineering",
+        "CAD Modeling",
+        "3D Printing",
+        "Mathematics"
+      ],
+      "learningSkills": [
+        "Python",
+        "C++",
+        "Robotics"
+      ],
+      "skillLevel": "Advanced",
+      "availability": "Weekdays 4 PM - 7 PM",
+      "learningMode": "Both",
+      "points": 95,
+      "badges": [
+        "First Exchange",
+        "Skill Mentor"
+      ],
+      "rating": 4.9,
+      "reviewCount": 6,
+      "isSample": true
+    },
+    {
+      "id": "sample_priya",
+      "name": "Priya Das",
+      "email": "priya.das@campus.edu",
+      "college": "Tech Institute of Engineering",
+      "department": "Business & Management",
+      "year": "1st Year",
+      "bio": "Fresher exploring digital branding and events. Can teach basic acoustic guitar chords and public speaking. Looking to learn Figma basics.",
+      "profileImage": "",
+      "teachingSkills": [
+        "Music",
+        "Marketing",
+        "Communication"
+      ],
+      "learningSkills": [
+        "UI/UX",
+        "Figma",
+        "Web Development"
+      ],
+      "skillLevel": "Beginner",
+      "availability": "Saturday whole day",
+      "learningMode": "Offline",
+      "points": 45,
+      "badges": [
+        "First Exchange"
+      ],
+      "rating": 5,
+      "reviewCount": 3,
+      "isSample": true
+    },
+    {
+      "id": "demo_rahul",
+      "name": "Rahul Sharma",
+      "email": "rahul.sharma@campus.edu",
+      "college": "Tech Institute of Engineering",
+      "department": "Computer Science",
+      "year": "3rd Year",
+      "bio": "Updated bio tested via frontend proxy!",
+      "profileImage": "",
+      "teachingSkills": [
+        "Python",
+        "C++",
+        "Data Structures"
+      ],
+      "learningSkills": [
+        "UI/UX",
+        "React",
+        "Figma"
+      ],
+      "skillLevel": "Intermediate",
+      "availability": "Weekdays 6 PM - 9 PM",
+      "learningMode": "Both",
+      "points": 125,
+      "badges": [
+        "First Exchange",
+        "Skill Mentor"
+      ],
+      "rating": 4.8,
+      "reviewCount": 4,
+      "isSample": false
+    }
+  ],
+  "requests": [
+    {
+      "id": "req_1789836510780",
+      "fromId": "demo_rahul",
+      "fromName": "Rahul Sharma",
+      "toId": "sample_riya",
+      "toName": "Riya Patel",
+      "skillWanted": "UI/UX",
+      "skillOffered": "Python",
+      "message": "Hey Riya, would love to learn Figma & UI/UX from you!",
+      "status": "accepted",
+      "createdAt": 1789836510780
+    },
+    {
+      "id": "req_1789834778593",
+      "fromId": "demo_rahul",
+      "fromName": "Rahul Sharma",
+      "toId": "sample_riya",
+      "toName": "Riya Patel",
+      "skillWanted": "UI/UX",
+      "skillOffered": "Python",
+      "message": "Hey Riya, would love to learn Figma & UI/UX from you!",
+      "status": "accepted",
+      "createdAt": 1789834778593
+    },
+    {
+      "id": "req_1789831959956",
+      "fromId": "demo_rahul",
+      "fromName": "Rahul Sharma",
+      "toId": "sample_riya",
+      "toName": "Riya Patel",
+      "skillWanted": "UI/UX",
+      "skillOffered": "Python",
+      "message": "Hey Riya, would love to learn Figma & UI/UX from you!",
+      "status": "accepted",
+      "createdAt": 1789831959956
+    },
+    {
+      "id": "req_1789831274883",
+      "fromId": "demo_rahul",
+      "fromName": "Rahul Sharma",
+      "toId": "sample_riya",
+      "toName": "Riya Patel",
+      "skillWanted": "UI/UX",
+      "skillOffered": "Python",
+      "message": "Hey Riya, would love to learn Figma & UI/UX from you!",
+      "status": "accepted",
+      "createdAt": 1789831274883
+    },
+    {
+      "id": "req_1789831211787",
+      "fromId": "demo_rahul",
+      "fromName": "Rahul Sharma",
+      "toId": "sample_riya",
+      "toName": "Riya Patel",
+      "skillWanted": "UI/UX",
+      "skillOffered": "Python",
+      "message": "Hey Riya, would love to learn Figma & UI/UX from you!",
+      "status": "accepted",
+      "createdAt": 1789831211787
+    },
+    {
+      "id": "req_1789831089269",
+      "fromId": "demo_rahul",
+      "fromName": "Rahul Sharma",
+      "toId": "sample_riya",
+      "toName": "Riya Patel",
+      "skillWanted": "UI/UX",
+      "skillOffered": "Python",
+      "message": "Hey Riya, would love to learn Figma & UI/UX from you!",
+      "status": "accepted",
+      "createdAt": 1789831089269
+    },
+    {
+      "id": "req_1",
+      "fromId": "sample_riya",
+      "fromName": "Riya Patel",
+      "toId": "demo_rahul",
+      "toName": "Rahul Sharma",
+      "skillWanted": "Python",
+      "skillOffered": "UI/UX",
+      "message": "Hey Rahul! Saw you can teach Python. I can help you with Figma and UI/UX design in return!",
+      "status": "pending",
+      "createdAt": 1789814700460
+    },
+    {
+      "id": "req_2",
+      "fromId": "demo_rahul",
+      "fromName": "Rahul Sharma",
+      "toId": "sample_aarav",
+      "toName": "Aarav Sharma",
+      "skillWanted": "React",
+      "skillOffered": "Data Structures",
+      "message": "Hi Aarav, would love to collaborate and learn React fundamentals.",
+      "status": "accepted",
+      "createdAt": 1789656300460
+    }
+  ],
+  "sessions": [
+    {
+      "id": "sess_1",
+      "skill": "React Component Architecture",
+      "teacherId": "sample_aarav",
+      "teacherName": "Aarav Sharma",
+      "learnerId": "demo_rahul",
+      "learnerName": "Rahul Sharma",
+      "date": "2026-09-20",
+      "time": "17:00",
+      "mode": "Online",
+      "location": "Google Meet: meet.google.com/cse-demo-room",
+      "notes": "Bring a code editor with Node.js installed.",
+      "status": "Scheduled",
+      "createdAt": 1789742700468
+    },
+    {
+      "id": "sess_1789831089313",
+      "skill": "Figma Component Systems",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "learnerId": "demo_rahul",
+      "learnerName": "Rahul Sharma",
+      "date": "2026-09-25",
+      "time": "18:00",
+      "mode": "Online",
+      "location": "Google Meet: meet.google.com/cse-test",
+      "notes": "Bring your laptop and Figma account.",
+      "status": "Completed",
+      "createdAt": 1789831089313
+    },
+    {
+      "id": "sess_1789831211845",
+      "skill": "Figma Component Systems",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "learnerId": "demo_rahul",
+      "learnerName": "Rahul Sharma",
+      "date": "2026-09-25",
+      "time": "18:00",
+      "mode": "Online",
+      "location": "Google Meet: meet.google.com/cse-test",
+      "notes": "Bring your laptop and Figma account.",
+      "status": "Completed",
+      "createdAt": 1789831211845
+    },
+    {
+      "id": "sess_1789831274929",
+      "skill": "Figma Component Systems",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "learnerId": "demo_rahul",
+      "learnerName": "Rahul Sharma",
+      "date": "2026-09-25",
+      "time": "18:00",
+      "mode": "Online",
+      "location": "Google Meet: meet.google.com/cse-test",
+      "notes": "Bring your laptop and Figma account.",
+      "status": "Completed",
+      "createdAt": 1789831274929
+    },
+    {
+      "id": "sess_1789831960035",
+      "skill": "Figma Component Systems",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "learnerId": "demo_rahul",
+      "learnerName": "Rahul Sharma",
+      "date": "2026-09-25",
+      "time": "18:00",
+      "mode": "Online",
+      "location": "Google Meet: meet.google.com/cse-test",
+      "notes": "Bring your laptop and Figma account.",
+      "status": "Completed",
+      "createdAt": 1789831960035
+    },
+    {
+      "id": "sess_1789834778660",
+      "skill": "Figma Component Systems",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "learnerId": "demo_rahul",
+      "learnerName": "Rahul Sharma",
+      "date": "2026-09-25",
+      "time": "18:00",
+      "mode": "Online",
+      "location": "Google Meet: meet.google.com/cse-test",
+      "notes": "Bring your laptop and Figma account.",
+      "status": "Completed",
+      "createdAt": 1789834778660
+    },
+    {
+      "id": "sess_1789836510827",
+      "skill": "Figma Component Systems",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "learnerId": "demo_rahul",
+      "learnerName": "Rahul Sharma",
+      "date": "2026-09-25",
+      "time": "18:00",
+      "mode": "Online",
+      "location": "Google Meet: meet.google.com/cse-test",
+      "notes": "Bring your laptop and Figma account.",
+      "status": "Completed",
+      "createdAt": 1789836510827
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_1",
+      "chatId": "req_2",
+      "senderId": "sample_aarav",
+      "senderName": "Aarav Sharma",
+      "text": "Hey Rahul! Excited to teach React component architecture!",
+      "createdAt": 1789821900468
+    },
+    {
+      "id": "msg_2",
+      "chatId": "req_2",
+      "senderId": "demo_rahul",
+      "senderName": "Rahul Sharma",
+      "text": "Awesome Aarav, thanks! Looking forward to our session tomorrow.",
+      "createdAt": 1789825500468
+    },
+    {
+      "id": "msg_1789831089297",
+      "chatId": "req_1789831089269",
+      "senderId": "demo_rahul",
+      "senderName": "Rahul Sharma",
+      "text": "Hi Riya! When are you free for our first design session?",
+      "createdAt": 1789831089297
+    },
+    {
+      "id": "msg_1789831211829",
+      "chatId": "req_1789831211787",
+      "senderId": "demo_rahul",
+      "senderName": "Rahul Sharma",
+      "text": "Hi Riya! When are you free for our first design session?",
+      "createdAt": 1789831211829
+    },
+    {
+      "id": "msg_1789831274913",
+      "chatId": "req_1789831274883",
+      "senderId": "demo_rahul",
+      "senderName": "Rahul Sharma",
+      "text": "Hi Riya! When are you free for our first design session?",
+      "createdAt": 1789831274913
+    },
+    {
+      "id": "msg_1789831960001",
+      "chatId": "req_1789831959956",
+      "senderId": "demo_rahul",
+      "senderName": "Rahul Sharma",
+      "text": "Hi Riya! When are you free for our first design session?",
+      "createdAt": 1789831960001
+    },
+    {
+      "id": "msg_1789834778636",
+      "chatId": "req_1789834778593",
+      "senderId": "demo_rahul",
+      "senderName": "Rahul Sharma",
+      "text": "Hi Riya! When are you free for our first design session?",
+      "createdAt": 1789834778636
+    },
+    {
+      "id": "msg_1789836510811",
+      "chatId": "req_1789836510780",
+      "senderId": "demo_rahul",
+      "senderName": "Rahul Sharma",
+      "text": "Hi Riya! When are you free for our first design session?",
+      "createdAt": 1789836510811
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev_1",
+      "teacherId": "demo_rahul",
+      "teacherName": "Rahul Sharma",
+      "reviewerId": "sample_vikram",
+      "reviewerName": "Vikram Malhotra",
+      "skill": "Python",
+      "rating": 5,
+      "comment": "Rahul explained Python loops and data structures with super clear examples. Highly recommend learning from him!",
+      "createdAt": 1789397100468
+    },
+    {
+      "id": "rev_1789831089331",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "reviewerId": "demo_rahul",
+      "reviewerName": "Rahul Sharma",
+      "skill": "Figma Component Systems",
+      "rating": 5,
+      "comment": "Riya is a fantastic teacher! Learned auto-layout and components in 1 hour.",
+      "createdAt": 1789831089331
+    },
+    {
+      "id": "rev_1789831211864",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "reviewerId": "demo_rahul",
+      "reviewerName": "Rahul Sharma",
+      "skill": "Figma Component Systems",
+      "rating": 5,
+      "comment": "Riya is a fantastic teacher! Learned auto-layout and components in 1 hour.",
+      "createdAt": 1789831211864
+    },
+    {
+      "id": "rev_1789831274950",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "reviewerId": "demo_rahul",
+      "reviewerName": "Rahul Sharma",
+      "skill": "Figma Component Systems",
+      "rating": 5,
+      "comment": "Riya is a fantastic teacher! Learned auto-layout and components in 1 hour.",
+      "createdAt": 1789831274950
+    },
+    {
+      "id": "rev_1789831960072",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "reviewerId": "demo_rahul",
+      "reviewerName": "Rahul Sharma",
+      "skill": "Figma Component Systems",
+      "rating": 5,
+      "comment": "Riya is a fantastic teacher! Learned auto-layout and components in 1 hour.",
+      "createdAt": 1789831960072
+    },
+    {
+      "id": "rev_1789834778692",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "reviewerId": "demo_rahul",
+      "reviewerName": "Rahul Sharma",
+      "skill": "Figma Component Systems",
+      "rating": 5,
+      "comment": "Riya is a fantastic teacher! Learned auto-layout and components in 1 hour.",
+      "createdAt": 1789834778692
+    },
+    {
+      "id": "rev_1789836510846",
+      "teacherId": "sample_riya",
+      "teacherName": "Riya Patel",
+      "reviewerId": "demo_rahul",
+      "reviewerName": "Rahul Sharma",
+      "skill": "Figma Component Systems",
+      "rating": 5,
+      "comment": "Riya is a fantastic teacher! Learned auto-layout and components in 1 hour.",
+      "createdAt": 1789836510846
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif_1789836510827",
+      "userId": "demo_rahul",
+      "title": "New Learning Session Scheduled",
+      "message": "A session for \"Figma Component Systems\" was arranged on 2026-09-25 at 18:00.",
+      "type": "session",
+      "read": false,
+      "createdAt": 1789836510827,
+      "link": "/sessions"
+    },
+    {
+      "id": "notif_1789836510801",
+      "userId": "demo_rahul",
+      "title": "Request Accepted! 🎉",
+      "message": "Riya Patel accepted your exchange request for UI/UX!",
+      "type": "accepted",
+      "read": false,
+      "createdAt": 1789836510801,
+      "link": "/chat?requestId=req_1789836510780"
+    },
+    {
+      "id": "notif_1789836510780",
+      "userId": "sample_riya",
+      "title": "New Skill Exchange Request",
+      "message": "Rahul Sharma wants to learn UI/UX and offered Python.",
+      "type": "request",
+      "read": false,
+      "createdAt": 1789836510780,
+      "link": "/requests"
+    },
+    {
+      "id": "notif_1789834778660",
+      "userId": "demo_rahul",
+      "title": "New Learning Session Scheduled",
+      "message": "A session for \"Figma Component Systems\" was arranged on 2026-09-25 at 18:00.",
+      "type": "session",
+      "read": false,
+      "createdAt": 1789834778660,
+      "link": "/sessions"
+    },
+    {
+      "id": "notif_1789834778620",
+      "userId": "demo_rahul",
+      "title": "Request Accepted! 🎉",
+      "message": "Riya Patel accepted your exchange request for UI/UX!",
+      "type": "accepted",
+      "read": false,
+      "createdAt": 1789834778620,
+      "link": "/chat?requestId=req_1789834778593"
+    },
+    {
+      "id": "notif_1789834778593",
+      "userId": "sample_riya",
+      "title": "New Skill Exchange Request",
+      "message": "Rahul Sharma wants to learn UI/UX and offered Python.",
+      "type": "request",
+      "read": false,
+      "createdAt": 1789834778593,
+      "link": "/requests"
+    },
+    {
+      "id": "notif_1789831960035",
+      "userId": "demo_rahul",
+      "title": "New Learning Session Scheduled",
+      "message": "A session for \"Figma Component Systems\" was arranged on 2026-09-25 at 18:00.",
+      "type": "session",
+      "read": false,
+      "createdAt": 1789831960035,
+      "link": "/sessions"
+    },
+    {
+      "id": "notif_1789831959985",
+      "userId": "demo_rahul",
+      "title": "Request Accepted! 🎉",
+      "message": "Riya Patel accepted your exchange request for UI/UX!",
+      "type": "accepted",
+      "read": false,
+      "createdAt": 1789831959985,
+      "link": "/chat?requestId=req_1789831959956"
+    },
+    {
+      "id": "notif_1789831959956",
+      "userId": "sample_riya",
+      "title": "New Skill Exchange Request",
+      "message": "Rahul Sharma wants to learn UI/UX and offered Python.",
+      "type": "request",
+      "read": false,
+      "createdAt": 1789831959956,
+      "link": "/requests"
+    },
+    {
+      "id": "notif_1789831274929",
+      "userId": "demo_rahul",
+      "title": "New Learning Session Scheduled",
+      "message": "A session for \"Figma Component Systems\" was arranged on 2026-09-25 at 18:00.",
+      "type": "session",
+      "read": false,
+      "createdAt": 1789831274929,
+      "link": "/sessions"
+    },
+    {
+      "id": "notif_1789831274902",
+      "userId": "demo_rahul",
+      "title": "Request Accepted! 🎉",
+      "message": "Riya Patel accepted your exchange request for UI/UX!",
+      "type": "accepted",
+      "read": false,
+      "createdAt": 1789831274902,
+      "link": "/chat?requestId=req_1789831274883"
+    },
+    {
+      "id": "notif_1789831274883",
+      "userId": "sample_riya",
+      "title": "New Skill Exchange Request",
+      "message": "Rahul Sharma wants to learn UI/UX and offered Python.",
+      "type": "request",
+      "read": false,
+      "createdAt": 1789831274883,
+      "link": "/requests"
+    },
+    {
+      "id": "notif_1789831211845",
+      "userId": "demo_rahul",
+      "title": "New Learning Session Scheduled",
+      "message": "A session for \"Figma Component Systems\" was arranged on 2026-09-25 at 18:00.",
+      "type": "session",
+      "read": false,
+      "createdAt": 1789831211845,
+      "link": "/sessions"
+    },
+    {
+      "id": "notif_1789831211819",
+      "userId": "demo_rahul",
+      "title": "Request Accepted! 🎉",
+      "message": "Riya Patel accepted your exchange request for UI/UX!",
+      "type": "accepted",
+      "read": false,
+      "createdAt": 1789831211819,
+      "link": "/chat?requestId=req_1789831211787"
+    },
+    {
+      "id": "notif_1789831211787",
+      "userId": "sample_riya",
+      "title": "New Skill Exchange Request",
+      "message": "Rahul Sharma wants to learn UI/UX and offered Python.",
+      "type": "request",
+      "read": false,
+      "createdAt": 1789831211787,
+      "link": "/requests"
+    },
+    {
+      "id": "notif_1789831089313",
+      "userId": "demo_rahul",
+      "title": "New Learning Session Scheduled",
+      "message": "A session for \"Figma Component Systems\" was arranged on 2026-09-25 at 18:00.",
+      "type": "session",
+      "read": false,
+      "createdAt": 1789831089313,
+      "link": "/sessions"
+    },
+    {
+      "id": "notif_1789831089287",
+      "userId": "demo_rahul",
+      "title": "Request Accepted! 🎉",
+      "message": "Riya Patel accepted your exchange request for UI/UX!",
+      "type": "accepted",
+      "read": false,
+      "createdAt": 1789831089287,
+      "link": "/chat?requestId=req_1789831089269"
+    },
+    {
+      "id": "notif_1789831089269",
+      "userId": "sample_riya",
+      "title": "New Skill Exchange Request",
+      "message": "Rahul Sharma wants to learn UI/UX and offered Python.",
+      "type": "request",
+      "read": false,
+      "createdAt": 1789831089269,
+      "link": "/requests"
+    },
+    {
+      "id": "notif_1",
+      "userId": "demo_rahul",
+      "title": "New Skill Exchange Request",
+      "message": "Riya Patel sent you an exchange request for Python ↔ UI/UX.",
+      "type": "request",
+      "read": false,
+      "createdAt": 1789814700468,
+      "link": "/requests"
+    },
+    {
+      "id": "notif_2",
+      "userId": "demo_rahul",
+      "title": "Request Accepted!",
+      "message": "Aarav Sharma accepted your request to learn React.",
+      "type": "accepted",
+      "read": true,
+      "createdAt": 1789656300468,
+      "link": "/requests"
+    }
+  ],
+  "reports": [],
+  "categories": [
+    "Programming",
+    "AI & Machine Learning",
+    "UI/UX",
+    "Photography",
+    "Video Editing",
+    "Music",
+    "Communication",
+    "Marketing",
+    "Engineering",
+    "Academics",
+    "Sports",
+    "Other"
+  ]
+}

@@ -276,7 +276,7 @@ export default function ProfileSetup() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full py-3.5 rounded-full bg-ink text-white font-semibold text-sm hover:bg-ink/90 disabled:opacity-50 transition-colors shadow-sm"
+          className="w-full py-3.5 rounded-full bg-ink text-white font-semibold text-sm hover:bg-ink/90 disabled:opacity-50 shadow-sm"
         >
           {submitting ? "Saving..." : "Save Profile"}
         </button>

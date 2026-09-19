@@ -85,7 +85,7 @@ export default function Admin() {
         </div>
         <button
           onClick={handleSeedSamples}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-sun/30 hover:bg-sun/40 text-ink text-xs font-bold border border-sun/60 transition-colors"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-sun/30 hover:bg-sun/40 text-ink text-xs font-bold border border-sun/60"
         >
           <SparklesIcon className="w-4 h-4 text-ink" />
           <span>Reload Sample Campus Data</span>

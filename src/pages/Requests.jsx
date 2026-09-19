@@ -52,7 +52,7 @@ export default function Requests() {
         </div>
         <Link
           to="/discover"
-          className="text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral/90 transition-all self-start shadow-sm"
+          className="text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral/90 self-start shadow-sm"
         >
           + Find More Peers
         </Link>
@@ -68,7 +68,7 @@ export default function Requests() {
       <div className="flex gap-2 mb-8 border-b border-mist pb-4">
         <button
           onClick={() => setTab("received")}
-          className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+          className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider ${
             tab === "received"
               ? "bg-ink text-white shadow-sm"
               : "bg-white border border-mist text-ink/70 hover:text-ink"
@@ -78,7 +78,7 @@ export default function Requests() {
         </button>
         <button
           onClick={() => setTab("sent")}
-          className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+          className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider ${
             tab === "sent"
               ? "bg-ink text-white shadow-sm"
               : "bg-white border border-mist text-ink/70 hover:text-ink"

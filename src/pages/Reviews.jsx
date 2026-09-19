@@ -151,7 +151,7 @@ export default function Reviews() {
                       onMouseEnter={() => setHoverRating(star)}
                       onMouseLeave={() => setHoverRating(0)}
                       onClick={() => setRating(star)}
-                      className="text-amber-400 hover:scale-110 transition-transform p-1"
+                      className="text-amber-400 p-1 opacity-90 hover:opacity-100"
                     >
                       <StarIcon className="w-8 h-8" filled={isFilled} />
                     </button>
@@ -176,7 +176,7 @@ export default function Reviews() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-full bg-coral text-white font-medium text-sm hover:bg-coral/90 transition-colors shadow-sm"
+              className="w-full py-3 rounded-full bg-coral text-white font-medium text-sm hover:bg-coral/90 shadow-sm"
             >
               Submit Review (+5 pts to teacher)
             </button>

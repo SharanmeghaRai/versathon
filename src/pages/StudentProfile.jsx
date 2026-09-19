@@ -19,14 +19,12 @@ export default function StudentProfile() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Request form state
   const [showForm, setShowForm] = useState(false);
   const [skillWanted, setSkillWanted] = useState("");
   const [skillOffered, setSkillOffered] = useState("");
   const [message, setMessage] = useState("");
   const [requestStatus, setRequestStatus] = useState({ type: "", text: "" });
 
-  // Report modal state
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportReason, setReportReason] = useState("");
   const [reportSuccess, setReportSuccess] = useState(false);
@@ -155,7 +153,7 @@ export default function StudentProfile() {
             </span>
             <button
               onClick={() => setShowReportModal(true)}
-              className="text-[11px] text-ink/40 hover:text-red-600 transition-colors"
+              className="text-[11px] text-ink/40 hover:text-red-600"
             >
               🚩 Report / Moderate
             </button>
@@ -234,7 +232,7 @@ export default function StudentProfile() {
           <div className="mt-8 pt-6 border-t border-mist flex justify-start">
             <button
               onClick={() => setShowForm(true)}
-              className="px-7 py-3 rounded-full bg-coral text-white font-semibold text-sm hover:bg-coral/90 transition-all shadow-sm hover:scale-[1.02]"
+              className="px-7 py-3 rounded-full bg-coral text-white font-semibold text-sm hover:bg-coral/90 shadow-sm"
             >
               Send Skill Exchange Request
             </button>

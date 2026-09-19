@@ -1,0 +1,246 @@
+// Prisma Schema for Campus Skill Exchange
+// Configured for Supabase (PostgreSQL) with connection pooling support
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// -------------------------------------------------------------
+// ENUMS
+// -------------------------------------------------------------
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum LearningMode {
+  ONLINE
+  OFFLINE
+  BOTH
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  COMPLETED
+}
+
+enum SessionStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum SkillType {
+  TEACH
+  LEARN
+}
+
+enum ReportStatus {
+  PENDING
+  RESOLVED
+  DISMISSED
+}
+
+// -------------------------------------------------------------
+// MODELS / TABLES
+// -------------------------------------------------------------
+
+// 1. User / Student Profile
+model User {
+  id           String       @id @default(uuid())
+  email        String       @unique
+  password     String? // Hashed password (or null if using Supabase Auth)
+  name         String
+  college      String       @default("Tech Institute of Engineering")
+  department   String
+  year         String
+  bio          String?
+  profileImage String?
+  skillLevel   SkillLevel   @default(BEGINNER)
+  availability String?
+  learningMode LearningMode @default(BOTH)
+  points       Int          @default(0)
+  badges       String[]     @default(["First Exchange"])
+  rating       Float        @default(5.0)
+  reviewCount  Int          @default(0)
+  teachingSkills String[]   @default([])
+  learningSkills String[]   @default([])
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  // Relations
+  skills           UserSkill[]
+  sentRequests     ExchangeRequest[] @relation("SentRequests")
+  receivedRequests ExchangeRequest[] @relation("ReceivedRequests")
+  teachingSessions LearningSession[] @relation("TeacherSessions")
+  learningSessions LearningSession[] @relation("LearnerSessions")
+  reviewsReceived  Review[]          @relation("TeacherReviews")
+  reviewsGiven     Review[]          @relation("ReviewerReviews")
+  sentMessages     ChatMessage[]
+  notifications    Notification[]
+  reportsFiled     Report[]          @relation("ReporterUser")
+  reportsAgainst   Report[]          @relation("ReportedUser")
+
+  @@index([email])
+  @@index([department])
+}
+
+// 2. Skill Categories
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+
+  skills Skill[]
+}
+
+// 3. Skills Registry
+model Skill {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now())
+
+  userSkills UserSkill[]
+
+  @@index([name])
+}
+
+// 4. Junction: Skills each user can teach or wants to learn
+model UserSkill {
+  id      String     @id @default(uuid())
+  userId  String
+  skillId String
+  type    SkillType // TEACH or LEARN
+  level   SkillLevel @default(BEGINNER)
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId, type])
+  @@index([userId])
+  @@index([skillId])
+}
+
+// 5. Skill Exchange Requests
+model ExchangeRequest {
+  id           String        @id @default(uuid())
+  fromUserId   String
+  toUserId     String
+  skillWanted  String
+  skillOffered String
+  message      String?
+  status       RequestStatus @default(PENDING)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  fromUser User          @relation("SentRequests", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUser   User          @relation("ReceivedRequests", fields: [toUserId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+
+  @@index([fromUserId])
+  @@index([toUserId])
+  @@index([status])
+}
+
+// 6. Real-time Chat Messages
+model ChatMessage {
+  id        String   @id @default(uuid())
+  requestId String
+  senderId  String
+  text      String
+  createdAt DateTime @default(now())
+
+  request ExchangeRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  sender  User            @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([requestId])
+  @@index([senderId])
+}
+
+// 7. 1-on-1 Learning Sessions
+model LearningSession {
+  id        String        @id @default(uuid())
+  skill     String
+  teacherId String
+  learnerId String
+  date      String // e.g. "2026-09-25"
+  time      String // e.g. "17:00"
+  mode      LearningMode  @default(ONLINE)
+  location  String? // Meet link or physical campus room
+  notes     String?
+  status    SessionStatus @default(SCHEDULED)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  teacher User @relation("TeacherSessions", fields: [teacherId], references: [id], onDelete: Cascade)
+  learner User @relation("LearnerSessions", fields: [learnerId], references: [id], onDelete: Cascade)
+
+  @@index([teacherId])
+  @@index([learnerId])
+  @@index([status])
+}
+
+// 8. Peer Reviews & Ratings
+model Review {
+  id         String   @id @default(uuid())
+  teacherId  String
+  reviewerId String
+  skill      String
+  rating     Int      @default(5) // 1 to 5 stars
+  comment    String?
+  createdAt  DateTime @default(now())
+
+  teacher  User @relation("TeacherReviews", fields: [teacherId], references: [id], onDelete: Cascade)
+  reviewer User @relation("ReviewerReviews", fields: [reviewerId], references: [id], onDelete: Cascade)
+
+  @@index([teacherId])
+  @@index([reviewerId])
+}
+
+// 9. Notifications
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String // request, accepted, session, review
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([read])
+}
+
+// 10. Campus Safety Reports & Moderation
+model Report {
+  id             String       @id @default(uuid())
+  reportedUserId String
+  reporterId     String
+  reason         String
+  status         ReportStatus @default(PENDING)
+  createdAt      DateTime     @default(now())
+
+  reportedUser User @relation("ReportedUser", fields: [reportedUserId], references: [id], onDelete: Cascade)
+  reporter     User @relation("ReporterUser", fields: [reporterId], references: [id], onDelete: Cascade)
+
+  @@index([reportedUserId])
+  @@index([reporterId])
+  @@index([status])
+}

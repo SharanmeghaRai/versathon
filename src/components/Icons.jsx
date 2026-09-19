@@ -1,5 +1,3 @@
-// Clean SVG icons for modern, crisp UI without external package dependencies
-
 export function ChatIcon({ className = "w-5 h-5" }) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
