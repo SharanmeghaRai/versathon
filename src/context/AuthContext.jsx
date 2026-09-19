@@ -19,6 +19,8 @@ const DEFAULT_DEMO_PROFILE = {
   college: "Tech Institute of Engineering",
   department: "Computer Science",
   year: "3rd Year",
+  headline: "Computer Science Undergrad @ Tech Institute | React & Python Mentor | Cloud Enthusiast",
+  location: "Bengaluru, Karnataka, India",
   bio: "CS undergrad exploring Python tooling and algorithm practice. Looking to get hands-on with Figma prototyping and frontend components.",
   teachingSkills: ["Python", "C++", "Data Structures"],
   learningSkills: ["UI/UX", "React", "Figma"],
@@ -30,6 +32,71 @@ const DEFAULT_DEMO_PROFILE = {
   rating: 4.8,
   reviewCount: 4,
   createdAt: Date.now(),
+  certifications: [
+    {
+      id: "cert_rahul_1",
+      name: "Meta Front-End Developer Specialization",
+      issuer: "Meta / Coursera",
+      issueDate: "Jan 2025",
+      expirationDate: "No Expiration",
+      credentialId: "META-FE-984210",
+      credentialUrl: "https://coursera.org/verify/meta-front-end"
+    },
+    {
+      id: "cert_rahul_2",
+      name: "AWS Certified Cloud Practitioner",
+      issuer: "Amazon Web Services (AWS)",
+      issueDate: "Nov 2024",
+      expirationDate: "Nov 2027",
+      credentialId: "AWS-CCP-773194",
+      credentialUrl: "https://aws.amazon.com/verification"
+    }
+  ],
+  experiences: [
+    {
+      id: "exp_rahul_1",
+      title: "Peer Mentor - Code Club",
+      organization: "Tech Institute of Engineering",
+      location: "Campus • Part-time",
+      startDate: "Aug 2024",
+      endDate: "Present",
+      current: true,
+      description: "Mentored 40+ engineering juniors in Python DSA and Git collaboration. Co-hosted weekend hackathons."
+    },
+    {
+      id: "exp_rahul_2",
+      title: "Department Teaching Assistant",
+      organization: "Department of Computer Science",
+      location: "Campus",
+      startDate: "Jan 2025",
+      endDate: "Present",
+      current: true,
+      description: "Assisted faculty with weekly lab practicals and code debugging sessions."
+    }
+  ],
+  educations: [
+    {
+      id: "edu_rahul_1",
+      school: "Tech Institute of Engineering",
+      degree: "Bachelor of Technology - BTech",
+      fieldOfStudy: "Computer Science & Engineering",
+      startDate: "2023",
+      endDate: "2027",
+      grade: "9.1 CGPA",
+      activities: "IEEE Student Branch, Code Club Lead, Hackathon Finalist"
+    }
+  ],
+  projects: [
+    {
+      id: "proj_rahul_1",
+      title: "Campus Skill Exchange Portal",
+      startDate: "Dec 2024",
+      endDate: "Present",
+      description: "Built a peer-to-peer knowledge sharing web application featuring Node.js REST API, Vite React frontend, and LinkedIn-style student profiles.",
+      skills: ["React", "Node.js", "Tailwind CSS"],
+      projectUrl: "https://github.com/campus/skill-exchange"
+    }
+  ]
 };
 
 export function AuthProvider({ children }) {
@@ -180,7 +247,15 @@ export function AuthProvider({ children }) {
       if (savedUser && savedProfile) {
         try {
           setCurrentUser(JSON.parse(savedUser));
-          setProfile(JSON.parse(savedProfile));
+          const parsed = JSON.parse(savedProfile);
+          setProfile({
+            ...DEFAULT_DEMO_PROFILE,
+            ...parsed,
+            certifications: parsed.certifications || DEFAULT_DEMO_PROFILE.certifications,
+            experiences: parsed.experiences || DEFAULT_DEMO_PROFILE.experiences,
+            educations: parsed.educations || DEFAULT_DEMO_PROFILE.educations,
+            projects: parsed.projects || DEFAULT_DEMO_PROFILE.projects,
+          });
         } catch {
           setCurrentUser(DEFAULT_DEMO_USER);
           setProfile(DEFAULT_DEMO_PROFILE);

@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import ProfileSetup from "./pages/ProfileSetup";
 import Discover from "./pages/Discover";
 import StudentProfile from "./pages/StudentProfile";
+import UserProfile from "./pages/UserProfile";
 import Requests from "./pages/Requests";
 import Chat from "./pages/Chat";
 import Sessions from "./pages/Sessions";
@@ -31,9 +32,10 @@ export default function App() {
           {/* Protected Pages (require logged-in user or demo mode) */}
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/profile-setup" element={<ProtectedRoute><ProfileSetup /></ProtectedRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><ProfileSetup /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+          <Route path="/profile/:id" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
           <Route path="/discover" element={<ProtectedRoute><Discover /></ProtectedRoute>} />
-          <Route path="/student/:id" element={<ProtectedRoute><StudentProfile /></ProtectedRoute>} />
+          <Route path="/student/:id" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
           <Route path="/requests" element={<ProtectedRoute><Requests /></ProtectedRoute>} />
           <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
           <Route path="/sessions" element={<ProtectedRoute><Sessions /></ProtectedRoute>} />

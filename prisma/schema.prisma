@@ -65,6 +65,8 @@ model User {
   department   String
   year         String
   bio          String?
+  headline     String?
+  location     String?      @default("Bengaluru, Karnataka, India")
   profileImage String?
   skillLevel   SkillLevel   @default(BEGINNER)
   availability String?
@@ -75,6 +77,10 @@ model User {
   reviewCount  Int          @default(0)
   teachingSkills String[]   @default([])
   learningSkills String[]   @default([])
+  certifications Json?      @default("[]")
+  experiences    Json?      @default("[]")
+  educations     Json?      @default("[]")
+  projects       Json?      @default("[]")
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 

@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { fetchNotifications } from "../utils/dataService";
 import { BellIcon, ChatIcon, CalendarIcon, ShieldCheckIcon } from "./Icons";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const { currentUser, profile, logout, isFirebaseConfigured } = useAuth();
@@ -38,17 +39,17 @@ export default function Navbar() {
     : [];
 
   return (
-    <header className="bg-sand/95 backdrop-blur-md border-b border-mist sticky top-0 z-50">
+    <header className="bg-sand/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-mist dark:border-slate-800 sticky top-0 z-50 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <Link to="/" className="font-display font-black text-xl tracking-tight text-ink flex items-center gap-1">
+          <Link to="/" className="font-display font-black text-xl tracking-tight text-ink dark:text-white flex items-center gap-1">
             <span>Campus</span>
             <span className="text-coral">Skill</span>
             <span>Exchange</span>
           </Link>
           {!isFirebaseConfigured && (
-            <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-sun/30 border border-sun text-ink/80">
+            <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-sun/30 dark:bg-amber-950/50 border border-sun dark:border-amber-600/60 text-ink/80 dark:text-amber-300">
               Demo Mode
             </span>
           )}
@@ -62,8 +63,8 @@ export default function Navbar() {
               <Link
                 key={to}
                 to={to}
-                className={`text-sm font-medium ${
-                  isActive ? "text-coral font-bold" : "text-ink/75 hover:text-ink"
+                className={`text-sm font-medium transition-colors ${
+                  isActive ? "text-coral font-bold" : "text-ink/75 hover:text-ink dark:text-slate-300 dark:hover:text-white"
                 }`}
               >
                 {label}
@@ -74,12 +75,15 @@ export default function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center gap-3">
+          {/* Theme Toggle Button */}
+          <ThemeToggle />
+
           {currentUser ? (
             <>
               {/* Notification Bell */}
               <Link
                 to="/notifications"
-                className="relative p-2 rounded-full hover:bg-white text-ink/70 hover:text-ink"
+                className="relative p-2 rounded-full hover:bg-white dark:hover:bg-slate-800 text-ink/70 hover:text-ink dark:text-slate-300 dark:hover:text-white transition-colors"
                 title="Notifications"
               >
                 <BellIcon className="w-5 h-5" />
@@ -93,7 +97,7 @@ export default function Navbar() {
               {/* Admin Link */}
               <Link
                 to="/admin"
-                className="text-xs font-semibold px-3 py-1.5 rounded-full bg-sand border border-mist text-ink hover:bg-white flex items-center gap-1"
+                className="text-xs font-semibold px-3 py-1.5 rounded-full bg-sand dark:bg-slate-800 border border-mist dark:border-slate-700 text-ink dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 flex items-center gap-1 transition-colors"
                 title="Admin Dashboard"
               >
                 <ShieldCheckIcon className="w-3.5 h-3.5 text-coral" />
@@ -103,7 +107,7 @@ export default function Navbar() {
               {/* Profile Link */}
               <Link
                 to="/profile"
-                className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-full bg-white border border-mist text-xs font-semibold text-ink hover:border-coral"
+                className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-mist dark:border-slate-700 text-xs font-semibold text-ink dark:text-slate-200 hover:border-coral transition-colors"
               >
                 <span className="w-6 h-6 rounded-full bg-coral text-white flex items-center justify-center text-[11px] font-bold">
                   {profile?.name?.[0]?.toUpperCase() || "U"}
@@ -113,19 +117,19 @@ export default function Navbar() {
 
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 rounded-full bg-ink text-white text-xs font-medium hover:bg-ink/90 shadow-sm"
+                className="px-4 py-2 rounded-full bg-ink dark:bg-slate-800 text-white text-xs font-medium hover:bg-ink/90 dark:hover:bg-slate-700 border border-transparent dark:border-slate-700 shadow-sm transition-colors cursor-pointer"
               >
                 Log out
               </button>
             </>
           ) : (
             <div className="flex items-center gap-3">
-              <Link to="/login" className="text-sm font-semibold text-ink hover:text-coral">
+              <Link to="/login" className="text-sm font-semibold text-ink dark:text-slate-200 hover:text-coral transition-colors">
                 Log in
               </Link>
               <Link
                 to="/signup"
-                className="px-5 py-2.5 rounded-full bg-coral text-white text-sm font-semibold hover:bg-coral/90 shadow-sm"
+                className="px-5 py-2.5 rounded-full bg-coral text-white text-sm font-semibold hover:bg-coral/90 shadow-sm transition-all"
               >
                 Get Started
               </Link>
@@ -135,6 +139,7 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
           {currentUser && unreadCount > 0 && (
             <Link to="/notifications" className="relative p-2 text-coral">
               <BellIcon className="w-5 h-5" />
@@ -143,7 +148,7 @@ export default function Navbar() {
           )}
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="p-2 text-ink rounded-lg focus:outline-none"
+            className="p-2 text-ink dark:text-slate-200 rounded-lg focus:outline-none"
             aria-label="Toggle Navigation"
           >
             {menuOpen ? "✕" : "☰"}
@@ -153,13 +158,13 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {menuOpen && (
-        <div className="lg:hidden px-6 py-4 bg-sand border-t border-mist flex flex-col gap-3 shadow-lg">
+        <div className="lg:hidden px-6 py-4 bg-sand dark:bg-slate-900 border-t border-mist dark:border-slate-800 flex flex-col gap-3 shadow-lg transition-colors">
           {navLinks.map(({ to, label }) => (
             <Link
               key={to}
               to={to}
               onClick={() => setMenuOpen(false)}
-              className="py-2 text-sm font-semibold text-ink border-b border-mist/50"
+              className="py-2 text-sm font-semibold text-ink dark:text-slate-200 border-b border-mist/50 dark:border-slate-800"
             >
               {label}
             </Link>
@@ -170,7 +175,7 @@ export default function Navbar() {
               <Link
                 to="/notifications"
                 onClick={() => setMenuOpen(false)}
-                className="py-2 text-sm font-semibold text-ink flex items-center justify-between"
+                className="py-2 text-sm font-semibold text-ink dark:text-slate-200 flex items-center justify-between"
               >
                 <span>Notifications</span>
                 {unreadCount > 0 && (
@@ -182,14 +187,14 @@ export default function Navbar() {
               <Link
                 to="/profile"
                 onClick={() => setMenuOpen(false)}
-                className="py-2 text-sm font-semibold text-ink"
+                className="py-2 text-sm font-semibold text-ink dark:text-slate-200"
               >
                 Edit My Profile
               </Link>
               <Link
                 to="/settings"
                 onClick={() => setMenuOpen(false)}
-                className="py-2 text-sm font-semibold text-ink"
+                className="py-2 text-sm font-semibold text-ink dark:text-slate-200"
               >
                 Settings & Safety
               </Link>
@@ -205,7 +210,7 @@ export default function Navbar() {
                   setMenuOpen(false);
                   handleLogout();
                 }}
-                className="mt-2 w-full py-2.5 rounded-full bg-ink text-white text-sm font-medium"
+                className="mt-2 w-full py-2.5 rounded-full bg-ink dark:bg-slate-800 text-white text-sm font-medium border border-transparent dark:border-slate-700"
               >
                 Log out
               </button>
@@ -215,14 +220,14 @@ export default function Navbar() {
               <Link
                 to="/login"
                 onClick={() => setMenuOpen(false)}
-                className="w-full py-2 text-center text-sm font-semibold text-ink"
+                className="py-2 text-sm font-semibold text-ink dark:text-slate-200"
               >
                 Log in
               </Link>
               <Link
                 to="/signup"
                 onClick={() => setMenuOpen(false)}
-                className="w-full py-2.5 text-center rounded-full bg-coral text-white text-sm font-semibold"
+                className="py-2 text-sm font-semibold text-coral"
               >
                 Get Started
               </Link>
