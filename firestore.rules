@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Anyone logged in can read any profile (needed for Discover),
+    // but you can only edit your own profile.
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false;
+    }
+
+    // Anyone logged in can create a request or read requests.
+    // Only the sender or receiver of a request can update it (accept/decline).
+    match /requests/{requestId} {
+      allow read, create: if request.auth != null;
+      allow update: if request.auth != null &&
+        (request.auth.uid == resource.data.fromId || request.auth.uid == resource.data.toId);
+      allow delete: if false;
+    }
+  }
+}
